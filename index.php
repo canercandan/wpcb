@@ -4,7 +4,7 @@
 Plugin Name: WPCB
 Plugin URI: http://wpcb.fr
 Description: Plugin de paiement par CB, paypal, ... et de calcul de frais de port (WP e-Commerce requis)
-Version: 2.1
+Version: 2.2
 Author: 6WWW
 Author URI: http://6www.net
 */
@@ -586,11 +586,28 @@ function wpcb_intialize_livraison_options() {
 		add_settings_field('ENVELOPPEDOCUMENTOMRDM','Proposer la poste Enveloppe Document Outre-Mer Reste du Monde','wpcb_ENVELOPPEDOCUMENTOMRDM_callback','wpcb_livraison','livraison_settings_section');
 		add_settings_field('ENVELOPPEDOCUMENTOMRDM_name','Affichage enveloppe document Outre-Mer & Reste du Monde','wpcb_ENVELOPPEDOCUMENTOMRDM_name_callback','wpcb_livraison','livraison_settings_section');
 
+// MR : 
+		add_settings_field('mr_ComptePro','Je dispose d\'un compte pro Mondial Relay','wpcb_mr_ComptePro_callback','wpcb_livraison','livraison_settings_section');
+		add_settings_field('MONDIALRELAY_name','Affichage Mondial Relay','wpcb_MONDIALRELAY_name_callback','wpcb_livraison','livraison_settings_section');
+		add_settings_field('mr_CodeEnseigne','Code Enseigne','wpcb_mr_CodeEnseigne_callback','wpcb_livraison','livraison_settings_section');
+		add_settings_field('mr_ClePrivee','Clé Privée','wpcb_mr_ClePrivee_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_CodeMarque','Code Marque','wpcb_mr_CodeMarque_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_COL_Rel','Colis relay proche de vous','wpcb_mr_COL_Rel_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_Expe_Ad1','Expéditeur (attention à la syntaxe)','wpcb_mr_Expe_Ad1_callback','wpcb_livraison','livraison_settings_section');
+		add_settings_field('mr_Expe_Ad3','Adresse','wpcb_mr_Expe_Ad3_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_Expe_CP','Code Postal','wpcb_mr_Expe_CP_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_Expe_Ville','Ville','wpcb_mr_Expe_Ville_callback','wpcb_livraison','livraison_settings_section');		
+		add_settings_field('mr_Expe_Tel1','Téléphone','wpcb_mr_Expe_Tel1_callback','wpcb_livraison','livraison_settings_section');		
+
 	// Register the fields :
 	register_setting('wpcb_livraison','wpcb_livraison',''); //sanitize
 }
 add_action( 'admin_init', 'wpcb_intialize_livraison_options' );  
+
+// Include livraison files
 include('livraison.php');
+include('mondialrelay.php');
+
 function wpcb_livraison_callback() {  
     echo '<p>Réglage des options pour la livraison</p>';  
     // API
@@ -607,6 +624,10 @@ function wpcb_livraison_callback() {
 		}
 		// END OF API
 		echo '<p>Si les tarifs (donnés à titre indicatif) ont changé, merci de me le notifier à thomas@6www.net. </p>';
+		echo 'Si vous ne disposez pas d\'un compte pro Mondial Relay vous devez vous rendre sur <a href="http://www.mondialrelay.fr/espaces/particulier/v1/login.aspx" target="_blank">cette page</a> pour envoyer votre colis.<br />';
+		echo 'Les tarifs entre compte pro et compte particulier sont légèrement différents.<br />';
+		echo 'Un compte pro permet d\'éditer les étiquettes directement depuis votre interface WP e-Commerce.<br />';
+		
 }
 function wpcb_ENLEVEMENT_callback($args){  
     $options = get_option( 'wpcb_livraison');  
@@ -681,6 +702,78 @@ function wpcb_ENVELOPPEDOCUMENTOMRDM_name_callback(){
         echo '<input type="text"  size="75"id="ENVELOPPEDOCUMENTOMRDM_name" name="wpcb_livraison[ENVELOPPEDOCUMENTOMRDM_name]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
 }
 
+// Mondial Relay Compte Pro :
+function wpcb_mr_ComptePro_callback($args){  
+    $options = get_option( 'wpcb_livraison');  
+	$html = '<input type="checkbox" id="mr_ComptePro" name="wpcb_livraison[mr_ComptePro]" value="1" ' . checked(1, $options['mr_ComptePro'], false) . '/>';  
+    $html .= '<label for="mr_ComptePro"> '  . $args[0] . '</label>';   
+    echo $html;
+}
+function wpcb_MONDIALRELAY_name_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = 'Mondial Relay'; 
+    if(isset($options['MONDIALRELAY_name'])){$val = $options['MONDIALRELAY_name'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75"id="MONDIALRELAY_name" name="wpcb_livraison[MONDIALRELAY_name]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_CodeEnseigne_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = 'BDTESTMR'; 
+    if(isset($options['mr_CodeEnseigne'])){$val = $options['mr_CodeEnseigne'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="8"id="mr_CodeEnseigne" name="wpcb_livraison[mr_CodeEnseigne]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_ClePrivee_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = 'TesT_MondiaL_RelaY'; 
+    if(isset($options['mr_ClePrivee'])){$val = $options['mr_ClePrivee'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75"id="mr_ClePrivee" name="wpcb_livraison[mr_ClePrivee]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_CodeMarque_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = '11'; 
+    if(isset($options['mr_CodeMarque'])){$val = $options['mr_CodeMarque'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="2"id="mr_CodeMarque" name="wpcb_livraison[mr_CodeMarque]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+
+function wpcb_mr_COL_Rel_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = '012262'; 
+    if(isset($options['mr_COL_Rel'])){$val = $options['mr_COL_Rel'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="6" id="mr_COL_Rel" name="wpcb_livraison[mr_COL_Rel]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_Expe_Ad1_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = 'M. Thomas DT'; 
+    if(isset($options['mr_Expe_Ad1'])){$val = $options['mr_Expe_Ad1'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75" id="mr_Expe_Ad1" name="wpcb_livraison[mr_Expe_Ad1]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_Expe_Ad3_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = '2A Rue Danton'; 
+    if(isset($options['mr_Expe_Ad3'])){$val = $options['mr_Expe_Ad3'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75" id="mr_Expe_Ad3" name="wpcb_livraison[mr_Expe_Ad3]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_Expe_CP_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = '92120'; 
+    if(isset($options['mr_Expe_CP'])){$val = $options['mr_Expe_CP'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75" id="mr_Expe_CP" name="wpcb_livraison[mr_Expe_CP]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_Expe_Ville_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = 'Montrouge'; 
+    if(isset($options['mr_Expe_Ville'])){$val = $options['mr_Expe_Ville'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75" id="mr_Expe_Ville" name="wpcb_livraison[mr_Expe_Ville]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+function wpcb_mr_Expe_Tel1_callback(){  
+    $options = get_option( 'wpcb_livraison');  
+    $defaultval = '+336786101'; 
+    if(isset($options['mr_Expe_Tel1'])){$val = $options['mr_Expe_Tel1'];}else{$val=$defaultval;}
+        echo '<input type="text"  size="75" id="mr_Expe_Tel1" name="wpcb_livraison[mr_Expe_Tel1]" value="' . $val . '" placeholder="'.$defaultval.'"/>';
+}
+
+
+
+
 /** 
 * Developper options
 */  
@@ -704,6 +797,7 @@ function wpcb_dev_callback() {
 	 $wpcb_dev = get_option ( 'wpcb_dev' );
 
     echo '<p>Options pour developper</p>';
+    echo '<p>Aidez-nous dans le développement sur <a href="https://github.com/6WWW/wpcb">Github</a></p>';
     echo '<ul>';
 		echo '<li><p>Plugin version : '.$wpcb_dev['version'].'</li>';
 		echo '<li><p>Dossier Plugin : '.dirname(__FILE__).'</p></li>';

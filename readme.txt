@@ -1,11 +1,19 @@
-=== WPCB ===Contributors: 6WWWDonate link: http://wpcb.fr/donate/Tags: wp-e-commerce, atos, sips, carte bancaire, wpcb, mercanet, 6WWW, mailchimpRequires at least: 2.7Tested up to: 3.3Stable tag: 2.1
+=== WPCB ===Contributors: 6WWWDonate link: http://wpcb.fr/donate/Tags: wp-e-commerce, atos, sips, carte bancaire, wpcb, mercanet, 6WWW, mailchimpRequires at least: 2.7Tested up to: 3.3Stable tag: 2.2
 
 Paiement par cartes bancaires (majoritée des banques françaises), paypal, chèques et virement pour le plugin WP e-Commerce.
 Calcul de frais de port basé sur la poste (colis, chronopost, et d'autres à venir...)
 == Description ==Paiement par cartes bancaires (majoritée des banques françaises), paypal, chèques et virement pour le plugin WP e-Commerce.
-Calcul de frais de port basé sur la poste (colis, chronopost, et d'autres à venir...)
+Calcul de frais de port au départ de la France (colis, chronopost, Mondial Relay et d'autres à venir...)
 Fonctionne pour de nombreuses banques françaises :* Banque Populaire (CyberPlus, tm)* Société Générale (Sogenactif, tm)* Crédit Lyonnais (Sherlock, tm)* Crédit du Nord (Webaffaires, tm)* CCF (Elysnet, tm)* BNP (Mercanet, tm)
 * et de nombreuses autres banques basée sur la technologie ATOS SIPS ou SYSTEMPAY CYBERPLUS
+
+Système Paypal fonctionel (avec option sandbox!)
+
+Livraison :
+* La Poste Colis
+* Enveloppe Document (France, Union Européenne, Outre-Mer & Reste du monde)
+* Chronopost
+* Mondial Relais
 
 = Attention =
 Version Beta !
@@ -103,6 +111,10 @@ Note : les coordonnées de l'acheteur s'ajoute au dessus de ce message : Nom, Em
 6. Réglages Mailchimp
 7. Placer le shortcode wpcb sur une page / Options de paiement8. Livraison Poste française (Colis, chronopost, et d'autres mode de livraison à venir)
 == Changelog ==
+
+= 2.2 =
+* Livraison mondial relais (beta)
+* Ajout sur github : https://github.com/6WWW/wpcb/
 
 = 2.1 =
 * Pour les détenteurs de l'API : Ajout du module de calcul de frais de port. Mon autre plugin : http://wordpress.org/extend/plugins/wp-e-commerce-livraison-france/ va être remplacé par celui çi.
