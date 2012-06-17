@@ -1,0 +1,85 @@
+* Changelog
+
+** 2.2
+
+*** Livraison mondial relais (beta)
+*** Ajout sur github : https://github.com/6WWW/wpcb/
+
+** 2.1
+
+*** Pour les détenteurs de l'API : Ajout du module de calcul de frais de port. Mon autre plugin : http://wordpress.org/extend/plugins/wp-e-commerce-livraison-france/ va être remplacé par celui çi.
+
+** 2
+
+*** Version beta !!!
+*** Ajout d'une fonction sandbox pour tester vos paiement et le bon
+*** fonctionnement de votre fichier automatique response
+*** Ajout du mode de paiement par chèque !
+*** Ajout du mode de paiement par virement bancaire !
+*** Changement d'interface de réglage
+*** Ajout de Cyberplus Systempay
+
+** 1.1.9
+
+*** Ajout de la session id en get dans les normal et cancel return
+*** Ajout de automatic_response_url comme choix libre par le commercant dans le cas ou son site bloque certains dossier (deplacement manuel dans ce cas)
+*** Correction d'une erreur avec l'affichage des milliers et decimaux dans le calcul des prix (>1000€!)
+*** Correction mineures à droite à gauche pour plus de simplicité...
+
+** 1.1.8.1
+
+*** Bug si Zend non installé, corrigé
+
+** 1.1.8
+
+*** Mise à jour
+
+** 1.1.5
+
+*** Correction d'un bug de vidage de panier
+*** Réorganisation des options
+*** Ajout de la clé API
+
+** 1.1.3
+
+*** Amélioration de la sécurité importante (Merci à Cyril Lecomte).
+
+** 1.1.2
+
+*** Correction d'une erreur de suppression du plugin.
+
+** 1.1.1
+
+*** Le mode test a été amélioré.
+
+** 1.1
+
+*** Internationalized
+*** Atos currency_code added to the settings of the plugin
+*** Atos language added to the settings of the plugin
+*** Atos merchant_country added to the settings of the plugin
+*** Atos header_flag added to the settings of the plugin
+
+** 1.0.4
+
+*** Update to wpec api v2.0
+
+** 1.0.3
+
+*** Syntax correction
+
+** 1.0.2
+
+*** Mises à jour mineures
+
+** 1.0.1
+
+*** Mises à jour mineures
+
+** 1.0
+
+*** Première version
+
+# Local Variables:
+# mode: org
+# End:
